@@ -25,7 +25,14 @@ class Customer{
        newEnergyUse = ent.nextInt();
 
    }
-
+    public void output(){
+        System.out.println("Customer ID:"+ id);
+        System.out.println("Customer Address: " + address);
+        System.out.println("Customer Address: " + oldmeternumber);
+        System.out.println("Customer Address: " + newmeternumber);
+        System.out.println("Customer Address: " + oldEnergyUse);
+        System.out.println("Customer Address: " + newEnergyUse);
+    }
 
 
 }
