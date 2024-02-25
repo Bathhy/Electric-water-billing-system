@@ -60,7 +60,7 @@ class Customer{
 
     public int ElectricPrice(){
         return sumElectric = sumEnergyUsed * priceofEnergy;
-    }
+    } 
 
     public int WaterMeterPrice(){
         return sumWater = summeterwater  *priceofwater;
