@@ -83,8 +83,13 @@ public class GuiVersion {
         panel.add(new JLabel("New month Electric Energy:"));
         panel.add(Newenergyfield);
 
-        JButton calbutton = new JButton("Calculate Bill");
+        panel.add(new JLabel());
 
+        JButton calbutton = new JButton("Calculate Bill");
+        calbutton.setBounds(40,200,80,60);
+
+// Add the button to the last row, starting from the second column
+        panel.add(calbutton);
 
         calbutton.addActionListener(new ActionListener() {
             @Override
