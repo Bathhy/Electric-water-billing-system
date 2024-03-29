@@ -97,7 +97,7 @@ public class GuiVersion {
                 String address = addressfield.getText();
                 int meter = Integer.parseInt(Newmeterfield.getText());
                 int energy = Integer.parseInt(Newenergyfield.getText());
-                RenTer renter = new RenTer(917, 7511, 700, 1000);
+                RenTer renter = new RenTer(935, 7647, 700, 1000);
                 renter.input(id, address, meter, energy);
                 renter.calculate();
 

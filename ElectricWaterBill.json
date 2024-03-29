@@ -1,0 +1,19 @@
+{
+  "Febraury": [
+    {
+      "id": 1,
+      "address": "Phnom Penh",
+      "newmeternumber": 950,
+      "oldmeternumber": 935,
+      "newEnergyUse": 7761,
+      "oldEnergyUse": 7647,
+      "summeterwater": 15,
+      "sumEnergyUsed": 114,
+      "priceofwater": 1000,
+      "priceofEnergy": 700,
+      "sumElectric": 79800,
+      "sumWater": 15000,
+      "total": 94800
+    }
+  ]
+}

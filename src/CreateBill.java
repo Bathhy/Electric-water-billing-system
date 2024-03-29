@@ -1,22 +1,29 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
-class Customer{
-    Scanner ent = new Scanner(System.in);
+public class CreateBill {
     private  int id;
     private String address;
-   private int newmeternumber;
-   private int oldmeternumber;
-   private int newEnergyUse;
-   private int oldEnergyUse;
-   private int summeterwater;
-   private int sumEnergyUsed;
-   private int priceofwater;
-   private int priceofEnergy;
-   private int sumElectric;
-   private int sumWater;
-   private int total;
+    private int newmeternumber;
+    private int oldmeternumber;
+    private int newEnergyUse;
+    private int oldEnergyUse;
+    private int summeterwater;
+    private int sumEnergyUsed;
+    private int priceofwater;
+    private int priceofEnergy;
+    private int sumElectric;
+    private int sumWater;
+    private int total;
 
-    public Customer(int oldmeternumber, int oldEnergyUse, int priceofEnergy, int priceofwater) {
+    public CreateBill(int oldmeternumber, int oldEnergyUse, int priceofEnergy, int priceofwater) {
         this.oldmeternumber = oldmeternumber;
         this.oldEnergyUse = oldEnergyUse;
         this.priceofEnergy = priceofEnergy;
@@ -24,17 +31,19 @@ class Customer{
     }
 
     public void input(){
-       System.out.println("Enter your ID first :");
-       id = ent.nextInt();
-       ent.nextLine();
-       System.out.println("Enter Customer address:");
-       address= ent.nextLine();
-       System.out.println("Enter Water meter use new month:");
-       newmeternumber = ent.nextInt();
-       System.out.println("Enter your New month energy use :");
-       newEnergyUse = ent.nextInt();
 
-   }
+        Scanner ent = new Scanner(System.in);
+        System.out.println("Enter your ID first :");
+        id = ent.nextInt();
+        ent.nextLine();
+        System.out.println("Enter Customer address:");
+        address= ent.nextLine();
+        System.out.println("Enter Water meter use new month:");
+        newmeternumber = ent.nextInt();
+        System.out.println("Enter your New month energy use :");
+        newEnergyUse = ent.nextInt();
+
+    }
     public void output(){
         System.out.println("Customer ID:"+ id);
         System.out.println("Customer Address: " + address);
@@ -55,12 +64,11 @@ class Customer{
 
     public int calElectricEnergy(){
         return sumEnergyUsed = newEnergyUse - oldEnergyUse;
-
     }
 
     public int ElectricPrice(){
         return sumElectric = sumEnergyUsed * priceofEnergy;
-    } 
+    }
 
     public int WaterMeterPrice(){
         return sumWater = summeterwater  *priceofwater;
@@ -69,18 +77,29 @@ class Customer{
     public int RenterBill( ){
         return total = sumElectric + sumWater;
     }
+    public void StoringOperation(){
 
-}
-public class Main {
-    public static void main(String[] args) {
-        Customer renter = new Customer(917, 7511, 700, 1000);
+        ArrayList<CreateBill> Renter = new ArrayList<CreateBill>();
+        CreateBill renter = new CreateBill(935, 7647, 700, 1000);
         System.out.println("Welcome to Saren Electric - Water Billing System-->");
         System.out.println("Please fill the information here-->");
         renter.input();
         System.out.println("Here is this month bill-->");
         renter.output();
+        Renter.add(renter);
 
+        Map<String, ArrayList<CreateBill>> Renters = new HashMap<>();
+        Renters.put("Febraury", Renter);
 
-
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(Renters);
+        String filepath = "ElectricWaterBill.json";
+        try (FileWriter writeData= new FileWriter(filepath)){
+            writeData.write(json);
+            System.out.println("----Success");
+            writeData.close();
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 }
