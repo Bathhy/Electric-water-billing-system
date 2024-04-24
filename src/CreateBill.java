@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class CreateBill {
-    private  int id;
+    public static final String filename = "javaElectandWater.txt";
+    private int id;
     private String address;
     private int newmeternumber;
     private int oldmeternumber;
@@ -27,25 +28,33 @@ public class CreateBill {
         this.oldmeternumber = oldmeternumber;
         this.oldEnergyUse = oldEnergyUse;
         this.priceofEnergy = priceofEnergy;
-        this.priceofwater =priceofwater;
+        this.priceofwater = priceofwater;
     }
 
-    public void input(){
+    public void Updatebill(int newmeternumber, int newEnergyUse) {
+        this.oldmeternumber = this.newmeternumber;
+        this.oldEnergyUse = this.newEnergyUse;
+        this.newmeternumber = newmeternumber;
+        this.newEnergyUse = newEnergyUse;
+    }
+
+    public void input() {
 
         Scanner ent = new Scanner(System.in);
         System.out.println("Enter your ID first :");
         id = ent.nextInt();
         ent.nextLine();
         System.out.println("Enter Customer address:");
-        address= ent.nextLine();
+        address = ent.nextLine();
         System.out.println("Enter Water meter use new month:");
         newmeternumber = ent.nextInt();
         System.out.println("Enter your New month energy use :");
         newEnergyUse = ent.nextInt();
 
     }
-    public void output(){
-        System.out.println("Customer ID:"+ id);
+
+    public void output() {
+        System.out.println("Customer ID:" + id);
         System.out.println("Customer Address: " + address);
         System.out.println("Customer oldmeterNumber: " + oldmeternumber);
         System.out.println("Customer NewmeterNumber: " + newmeternumber);
@@ -58,26 +67,31 @@ public class CreateBill {
         System.out.println("Customer Total Bill this month: " + RenterBill());
     }
 
-    public int CalWaterMeter(){
+    public void Filestorage() {
+
+    }
+
+    public int CalWaterMeter() {
         return summeterwater = newmeternumber - oldmeternumber;
     }
 
-    public int calElectricEnergy(){
+    public int calElectricEnergy() {
         return sumEnergyUsed = newEnergyUse - oldEnergyUse;
     }
 
-    public int ElectricPrice(){
+    public int ElectricPrice() {
         return sumElectric = sumEnergyUsed * priceofEnergy;
     }
 
-    public int WaterMeterPrice(){
-        return sumWater = summeterwater  *priceofwater;
+    public int WaterMeterPrice() {
+        return sumWater = summeterwater * priceofwater;
     }
 
-    public int RenterBill( ){
+    public int RenterBill() {
         return total = sumElectric + sumWater;
     }
-    public void StoringOperation(){
+
+    public void StoringOperation() {
 
         ArrayList<CreateBill> Renter = new ArrayList<CreateBill>();
         CreateBill renter = new CreateBill(935, 7647, 700, 1000);
@@ -87,19 +101,40 @@ public class CreateBill {
         System.out.println("Here is this month bill-->");
         renter.output();
         Renter.add(renter);
+        try {
+            FileWriter writedata = new FileWriter(filename);
+            for (CreateBill renterData : Renter) {
+                writedata.write("Customer ID: " + renterData.id + "\n");
+                writedata.write("Customer Address: " + renterData.address + "\n");
+                writedata.write("Customer Old Meter Number: " + renterData.oldmeternumber + "\n");
+                writedata.write("Customer New Meter Number: " + renterData.newmeternumber + "\n");
+                writedata.write("Customer Old Energy Number: " + renterData.oldEnergyUse + "\n");
+                writedata.write("Customer New Energy Number: " + renterData.newEnergyUse + "\n");
+                writedata.write("Customer Calculate Water Meter Used: " + renterData.CalWaterMeter() + "\n");
+                writedata.write("Customer Calculate Electric Energy Used: " + renterData.calElectricEnergy() + "\n");
+                writedata.write("Customer Total Electric Bill: " + renterData.ElectricPrice() + "\n");
+                writedata.write("Customer Total Water Bill: " + renterData.WaterMeterPrice() + "\n");
+                writedata.write("Customer Total Bill this month: " + renterData.RenterBill() + "\n\n");
 
-        Map<String, ArrayList<CreateBill>> Renters = new HashMap<>();
-        Renters.put("Febraury", Renter);
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(Renters);
-        String filepath = "ElectricWaterBill.json";
-        try (FileWriter writeData= new FileWriter(filepath)){
-            writeData.write(json);
-            System.out.println("----Success");
-            writeData.close();
-        }catch (IOException e){
-            System.out.println(e.getMessage());
+            }
+            writedata.close();
+            System.out.printf("Succesfully write to file");
+        } catch (IOException e) {
+            System.out.printf("error writing data to file " + e.getMessage().toString());
         }
+
+//        Map<String, ArrayList<CreateBill>> Renters = new HashMap<>();
+//        Renters.put("Febraury", Renter);
+//
+//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//        String json = gson.toJson(Renters);
+//        String filepath = "ElectricWaterBill.json";
+//        try (FileWriter writeData= new FileWriter(filepath)){
+//            writeData.write(json);
+//            System.out.println("----Success");
+//            writeData.close();
+//        }catch (IOException e){
+//            System.out.println(e.getMessage());
+//        }
     }
 }

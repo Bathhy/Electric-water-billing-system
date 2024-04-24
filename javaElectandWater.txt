@@ -1,0 +1,12 @@
+Customer ID: 12
+Customer Address: pp
+Customer Old Meter Number: 935
+Customer New Meter Number: 230
+Customer Old Energy Number: 7647
+Customer New Energy Number: 345
+Customer Calculate Water Meter Used: -705
+Customer Calculate Electric Energy Used: -7302
+Customer Total Electric Bill: -5111400
+Customer Total Water Bill: -705000
+Customer Total Bill this month: -5816400
+
